@@ -1,34 +1,84 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "./app.css";
+import React, { useEffect, useState } from "react";
+import { pokemonService } from "./services/pokemonService";
+import { Pokemon } from "./interfaces/pokemon";
+
+import pokedex from "./assets/img/pokedex.png";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState("");
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+
+  useEffect(() => {
+    async function getPokemon() {
+      const pokemon = await pokemonService.searchPokemon("charmander");
+      setPokemon(pokemon);
+    }
+
+    getPokemon();
+  }, []);
+
+  // Debounce for search
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      const newPokemon = await pokemonService.searchPokemon(
+        search.trim().toLowerCase()
+      );
+      newPokemon && setPokemon(newPokemon);
+    }, 400);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search]);
+
+  const handleNextClick = async () => {
+    const newPokemon = await pokemonService.nextPokemon(pokemon);
+    newPokemon && setPokemon(newPokemon);
+  };
+
+  const handlePreviousClick = async () => {
+    const newPokemon = await pokemonService.previousPokemon(pokemon);
+    newPokemon && setPokemon(newPokemon);
+  };
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <main className="pokedex">
+        {/* Pokedex */}
+        <img src={pokedex} alt="Imagem de um Pokedex" />
+
+        {/* Pokemon Info */}
+        <div className="pokemon-box">
+          <img
+            className="pokemon-box__pokemon"
+            src={
+              pokemon?.sprites.versions["generation-v"]["black-white"].animated
+                .front_default
+            }
+            alt={`Imagem do pokemon ${pokemon?.name}`}
+          />
+          <div className="searchingLamp" />
+          <div className="pokemon-info">
+            <span className="pokemon-box__pokemon-name">
+              <span className="pokemon-box__pokemon-id">{pokemon?.id} </span>-{" "}
+              {pokemon?.name}
+            </span>
+          </div>
+        </div>
+        <div className="input-wrapper">
+          <input
+            type="text"
+            placeholder="Digite um pokemon"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="buttons-wrapper">
+          <button onClick={handlePreviousClick}>Prev</button>
+          <button onClick={handleNextClick}>Next</button>
+        </div>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
