@@ -47,7 +47,6 @@
 }
 
 .pokemon-box__pokemon {
-  width: 100%;
 }
 
 .pokedex__box__pokemon-info {
@@ -147,7 +146,7 @@
 
 .footer__link {
   text-decoration: none;
-  color: #a33847;
+  color: #313131;
   transition: all .3s ease;
 }
 .footer__link:hover {

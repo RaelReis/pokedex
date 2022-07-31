@@ -121,8 +121,8 @@ function App() {
           />
         </div>
         <div className="pokedex__buttons-wrapper">
-          <button onClick={handlePreviousClick}><img src={leftIcon} alt="" /></button>
-          <button onClick={handleNextClick}><img src={rightIcon} alt="" /></button>
+          <button aria-label="previous"onClick={handlePreviousClick}><img src={leftIcon} alt="" /></button>
+          <button aria-label="next" onClick={handleNextClick}><img src={rightIcon} alt="" /></button>
         </div>
       </main>
       <footer className="footer">

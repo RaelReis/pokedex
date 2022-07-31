@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 * {
   margin: 0;
@@ -15,5 +15,26 @@ html {
 body {
   color: #fff;
   font-size: 1.6rem;
-  background: #4e1f25;
+  
+  background: hsla(355, 74%, 62%, 1);
+
+  background: linear-gradient(
+    90deg,
+    hsla(355, 74%, 62%, 1) 0%,
+    hsla(204, 89%, 48%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(355, 74%, 62%, 1) 0%,
+    hsla(204, 89%, 48%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(355, 74%, 62%, 1) 0%,
+    hsla(204, 89%, 48%, 1) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E65763", endColorstr="#0D8FE6", GradientType=1 );
 }
