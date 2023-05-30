@@ -1,4 +1,4 @@
-import "./app.css";
+import "./App.css";
 import { useEffect, useRef, useState } from "react";
 import { pokemonService } from "./services/pokemonService";
 import { Pokemon } from "./interfaces/pokemon";
@@ -121,8 +121,8 @@ function App() {
           />
         </div>
         <div className="pokedex__buttons-wrapper">
-          <button aria-label="previous"onClick={handlePreviousClick}><img src={leftIcon} alt="" /></button>
-          <button aria-label="next" onClick={handleNextClick}><img src={rightIcon} alt="" /></button>
+          <button title="previous" aria-label="previous"onClick={handlePreviousClick}><img src={leftIcon} alt="" /></button>
+          <button title="next" aria-label="next" onClick={handleNextClick}><img src={rightIcon} alt="" /></button>
         </div>
       </main>
       <footer className="footer">
